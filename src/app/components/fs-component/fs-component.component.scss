@@ -1,0 +1,25 @@
+:host {
+  h1 {
+    font-size: 20px;
+    text-transform: capitalize;
+  }
+
+  .icon {
+    padding: 18px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .icons  mat-icon {
+    transform: scale(2.1);
+    color: #555;
+  }
+}
