@@ -5,7 +5,11 @@
   }
 
   .icon {
-    padding: 18px;
+    padding: 10px;
+    display: block;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
   }
 
   mat-form-field {
@@ -19,7 +23,11 @@
   }
 
   .icons  mat-icon {
-    transform: scale(2.1);
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    display: block;
+    overflow: hidden;
     color: #555;
   }
 }

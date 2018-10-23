@@ -7,7 +7,7 @@
     <h1>{{category.name}}</h1>
     <div class="icons">
       <span class="icon" *ngFor="let icon of category.icons">
-        <a href="javascript:;" (click)="select(icon.id)" *ngIf="!excludes[icon.id]"><mat-icon>{{icon.id}}</mat-icon></a>
+        <a href="javascript:;" (click)="select(icon.id)"><mat-icon>{{icon.id}}</mat-icon></a>
       </span>
     </div>
   </div>

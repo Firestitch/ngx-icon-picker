@@ -11,6 +11,7 @@ import { FsIconPickerModule } from 'fs-icon-picker';
 import { AppMaterialModule } from './material.module';
 import {
 ExampleComponent,
+PickerComponent,
 ExamplesComponent } from './components';
 import { AppComponent } from './app.component';
 
@@ -35,7 +36,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ExamplesComponent,
-    ExampleComponent
+    ExampleComponent,
+    PickerComponent
   ],
   providers: [
   ],

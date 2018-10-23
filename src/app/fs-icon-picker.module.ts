@@ -12,6 +12,7 @@ import {
   MatIconModule,
   MatInputModule
 } from '@angular/material';
+import { FsIconPickerDirective } from './directives/fs-icon-picker';
 
 @NgModule({
   imports: [
@@ -26,12 +27,14 @@ import {
   ],
   exports: [
     FsComponentComponent,
+    FsIconPickerDirective
   ],
   entryComponents: [
     FsComponentComponent
   ],
   declarations: [
     FsComponentComponent,
+    FsIconPickerDirective
   ],
   providers: [
     IconDialog,
