@@ -1,0 +1,14 @@
+.preview {
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+::ng-deep {
+  .mat-form-field-infix {
+    display: inline-flex;
+  }
+}

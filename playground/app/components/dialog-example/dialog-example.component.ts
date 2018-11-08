@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { IconDialog } from 'fs-icon-picker';
 
 @Component({
-  selector: 'example',
-  templateUrl: 'example.component.html'
+  selector: 'dialog-example',
+  templateUrl: 'dialog-example.component.html'
 })
-export class ExampleComponent {
+export class DialogExampleComponent {
   public icon;
   constructor(private iconDialog: IconDialog) {}
 

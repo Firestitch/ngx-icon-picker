@@ -7,24 +7,24 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'fs-component',
-  templateUrl: 'fs-component.component.html',
-  styleUrls: [ 'fs-component.component.scss' ],
+  templateUrl: 'dialog.component.html',
+  styleUrls: [ 'dialog.component.scss' ],
 })
-export class FsComponentComponent implements OnInit {
+export class DialogComponent implements OnInit {
   public data = ICON_DATA.categories;
   public categories = ICON_DATA.categories;
   public zoom = 1;
   public search: string;
   public searchChanged: Subject<string> = new Subject<string>();
 
-  constructor(public dialogRef: MatDialogRef<FsComponentComponent>) {
+  constructor(public dialogRef: MatDialogRef<DialogComponent>) {
     // Exclude 2 tone icons
     // https://github.com/google/material-design-icons/issues/190
     const excludes = 'battery_20,battery_30,battery_50,battery_60,battery_80,battery_90,battery_charging_20,battery_charging_30,battery_charging_50,battery_charging_60,battery_charging_80,battery_charging_90,signal_cellular_0_bar,signal_cellular_1_bar,signal_cellular_2_bar,signal_cellular_3_bar,signal_cellular_connected_no_internet_0_bar,signal_cellular_connected_no_internet_1_bar,signal_cellular_connected_no_internet_2_bar,signal_cellular_connected_no_internet_3_bar,signal_wifi_0_bar,signal_wifi_1_bar_lock,signal_wifi_1_bar,signal_wifi_2_bar_lock,signal_wifi_2_bar,signal_wifi_3_bar_lock,signal_wifi_3_bar'.split(',');
 
     this.data.forEach(category => {
       category.icons.forEach((icon, index) => {
-        if (excludes.indexOf(icon.id)>=0) {
+        if (excludes.indexOf(icon.id) >= 0) {
           category.icons.splice(index, 1);
         }
       });
@@ -54,7 +54,7 @@ export class FsComponentComponent implements OnInit {
         this.data.forEach(category => {
           const icons = [];
           category.icons.forEach(icon => {
-            if (icon.id.indexOf(text)>=0) {
+            if (icon.id.indexOf(text) >= 0) {
               icons.push(icon);
             }
           });

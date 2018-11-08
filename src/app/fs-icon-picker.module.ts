@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { FsComponentComponent } from './components/fs-component/fs-component.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { IconDialog } from './services';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
@@ -12,7 +12,7 @@ import {
   MatIconModule,
   MatInputModule
 } from '@angular/material';
-import { FsIconPickerDirective } from './directives/fs-icon-picker';
+import { FsIconPickerComponent } from './components/fs-icon-picker';
 
 @NgModule({
   imports: [
@@ -26,15 +26,15 @@ import { FsIconPickerDirective } from './directives/fs-icon-picker';
     FormsModule
   ],
   exports: [
-    FsComponentComponent,
-    FsIconPickerDirective
+    DialogComponent,
+    FsIconPickerComponent
   ],
   entryComponents: [
-    FsComponentComponent
+    DialogComponent
   ],
   declarations: [
-    FsComponentComponent,
-    FsIconPickerDirective
+    DialogComponent,
+    FsIconPickerComponent
   ],
   providers: [
     IconDialog,

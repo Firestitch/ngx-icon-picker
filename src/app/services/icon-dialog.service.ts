@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { FsComponentComponent } from '../components';
+import { DialogComponent } from '../components';
 import { Subject } from 'rxjs';
 
 
@@ -11,7 +11,7 @@ export class IconDialog {
 
   public open() {
 
-    const dialogRef = this.dialog.open(FsComponentComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '550px',
       data: { }
     });
