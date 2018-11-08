@@ -1,10 +1,14 @@
-.preview {
+.fs-icon-wrap {
   height: 30px;
   width: 30px;
   display: inline-block;
   border-radius: 50%;
   margin-right: 4px;
   cursor: pointer;
+}
+
+.fs-icon-wrap .material-icons {
+  font-size: 28px;
 }
 
 ::ng-deep {

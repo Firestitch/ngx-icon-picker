@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DialogComponent } from './components/dialog/dialog.component';
 import { IconDialog } from './services';
+import { FsClearModule } from '@firestitch/clear';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 import {
@@ -23,7 +24,8 @@ import { FsIconPickerComponent } from './components/fs-icon-picker';
     MatInputModule,
     HttpClientJsonpModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FsClearModule
   ],
   exports: [
     DialogComponent,
