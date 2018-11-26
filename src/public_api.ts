@@ -3,4 +3,4 @@
  */
 
 export { FsIconPickerModule } from './app/fs-icon-picker.module';
-export { IconDialog } from './app/services';
+export { IconDialog } from './app/services/icon-dialog.service';
