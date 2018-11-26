@@ -19,7 +19,7 @@
     ],
     "paths": {
       "fs-icon-picker": [
-        "src/index.ts"
+        "src/public_api.ts"
       ]
     }
   }
