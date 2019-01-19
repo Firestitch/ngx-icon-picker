@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material';
   selector: '[fsIconPicker]',
   template: `
     <span>
-      <div class="fs-icon-wrap" *ngIf="ngModel" (click)="openDialog()"><mat-icon>{{ngModel}}</mat-icon></div>
+      <div class="fs-icon-wrap" *ngIf="ngModel" (click)="openDialog()"><mat-icon [ngStyle]="{ color: color }">{{ngModel}}</mat-icon></div>
     </span>
     <fs-clear (clear)="clear()" [show]="ngModel"></fs-clear>
   `,
@@ -22,6 +22,7 @@ import { MatDialog } from '@angular/material';
 })
 export class FsIconPickerComponent implements AfterViewInit {
   @Input() public ngModel: string | null = null;
+  @Input() public color: string = '';
   @Output() public ngModelChange = new EventEmitter<string>();
 
   constructor(private _dialog: MatDialog,

@@ -7,7 +7,14 @@ import { IconDialog } from 'fs-icon-picker';
 })
 export class PickerComponent {
   public icon;
-  constructor(private iconDialog: IconDialog) {}
+  public color = 'blue';
+  constructor(private iconDialog: IconDialog) {
+
+    setTimeout(() => {
+        this.color = 'pink';
+    },10000);
+
+  }
 
   public select() {
     this.iconDialog.open()
