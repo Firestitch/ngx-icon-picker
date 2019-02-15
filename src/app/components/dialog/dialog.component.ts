@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ICON_DATA } from '../../assets/data';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { invert, clone } from 'lodash';
+import { invert, clone } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconDialog } from 'fs-icon-picker';
+import { IconDialog } from '@firestitch/icon-picker';
 
 @Component({
   selector: 'dialog-example',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconDialog } from 'fs-icon-picker';
+import { IconDialog } from '@firestitch/icon-picker';
 
 @Component({
   selector: 'picker',
@@ -12,7 +12,7 @@ export class PickerComponent {
 
     setTimeout(() => {
         this.color = 'pink';
-    },10000);
+    }, 10000);
 
   }
 

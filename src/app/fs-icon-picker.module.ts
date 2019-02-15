@@ -1,10 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { DialogComponent } from './components/dialog/dialog.component';
-import { IconDialog } from './services/icon-dialog.service';
-import { FsClearModule } from '@firestitch/clear';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 import {
@@ -13,7 +9,14 @@ import {
   MatIconModule,
   MatInputModule
 } from '@angular/material';
+
+import { FsClearModule } from '@firestitch/clear';
+
+import { DialogComponent } from './components/dialog/dialog.component';
+import { IconDialog } from './services/icon-dialog.service';
+
 import { FsIconPickerComponent } from './components/fs-icon-picker/fs-icon-picker.component';
+
 
 @NgModule({
   imports: [
