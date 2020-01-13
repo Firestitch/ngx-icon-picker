@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ICON_DATA } from '../../assets/data';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { invert, clone } from 'lodash-es';
+import { MatDialogRef } from '@angular/material/dialog';
+import { clone } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   selector: 'fs-component',
   templateUrl: 'dialog.component.html',
   styleUrls: [ 'dialog.component.scss' ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent implements OnInit {
   public data = ICON_DATA.categories;
@@ -17,7 +18,10 @@ export class DialogComponent implements OnInit {
   public search: string;
   public searchChanged: Subject<string> = new Subject<string>();
 
-  constructor(public dialogRef: MatDialogRef<DialogComponent>) {
+  constructor(
+    public dialogRef: MatDialogRef<DialogComponent>,
+    private _cdRef: ChangeDetectorRef,
+  ) {
     // Exclude 2 tone icons
     // https://github.com/google/material-design-icons/issues/190
     const excludes = 'battery_20,battery_30,battery_50,battery_60,battery_80,battery_90,battery_charging_20,battery_charging_30,battery_charging_50,battery_charging_60,battery_charging_80,battery_charging_90,signal_cellular_0_bar,signal_cellular_1_bar,signal_cellular_2_bar,signal_cellular_3_bar,signal_cellular_connected_no_internet_0_bar,signal_cellular_connected_no_internet_1_bar,signal_cellular_connected_no_internet_2_bar,signal_cellular_connected_no_internet_3_bar,signal_wifi_0_bar,signal_wifi_1_bar_lock,signal_wifi_1_bar,signal_wifi_2_bar_lock,signal_wifi_2_bar,signal_wifi_3_bar_lock,signal_wifi_3_bar'.split(',');
@@ -64,6 +68,8 @@ export class DialogComponent implements OnInit {
             this.categories.push(cat);
           }
         });
+
+        this._cdRef.markForCheck();
       });
   }
 }

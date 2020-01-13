@@ -1,14 +1,15 @@
 import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
+  EventEmitter,
   HostListener,
   Input,
-  Output,
-  EventEmitter,
-  AfterViewInit
+  Output
 } from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: '[fsIconPicker]',
@@ -18,7 +19,8 @@ import { MatDialog } from '@angular/material';
     </span>
     <fs-clear (clear)="clear()" [show]="ngModel"></fs-clear>
   `,
-  styleUrls: ['./fs-icon-picker.component.scss']
+  styleUrls: ['./fs-icon-picker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsIconPickerComponent implements AfterViewInit {
   @Input() public ngModel: string | null = null;
