@@ -2,7 +2,7 @@
   "name": "@firestitch/icon-picker",
   "title": "Icon Picker",
   "description": "@firestitch/icon-picker",
-  "version": "8.0.0",
+  "version": "8.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Firestitch/ngx-icon-picker"
@@ -11,13 +11,7 @@
     "name": "Firestitch",
     "email": "admin@firestitch.com"
   },
-  "keywords": [
-    "angular"
-  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Firestitch/ngx-icon-picker/issues"
-  },
   "main": "package/index.js",
   "typings": "package/index.d.ts",
   "scripts": {

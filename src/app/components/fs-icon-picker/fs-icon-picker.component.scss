@@ -1,8 +1,5 @@
 .fs-icon-wrap {
-  height: 30px;
-  width: 30px;
-  display: inline-block;
-  border-radius: 50%;
+  align-self: flex-end;
   margin-right: 4px;
   cursor: pointer;
 }
@@ -11,8 +8,6 @@
   font-size: 28px;
 }
 
-::ng-deep {
-  .mat-form-field-infix {
-    display: inline-flex;
-  }
+:host {
+  cursor: pointer;
 }

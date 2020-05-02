@@ -1,15 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Subject } from 'rxjs';
 
 import { DialogComponent } from '../components/dialog/dialog.component';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Injectable()
-export class IconDialog {
+export class IconDialog implements OnDestroy {
 
   constructor(private dialog: MatDialog) {}
+
+  private _destroy$ = new Subject();
 
   public open() {
 
@@ -18,12 +21,23 @@ export class IconDialog {
       data: { }
     });
 
-    const subject = new Subject();
-    const afterClose = dialogRef.afterClosed().subscribe(result => {
+    const subject = new Subject<any>();
+    const afterClose = dialogRef.afterClosed()
+    .pipe(
+      takeUntil(this._destroy$)
+    )
+    .subscribe(result => {
       afterClose.unsubscribe();
       subject.next(result);
+      subject.complete();
     });
 
     return subject;
   }
+
+  public ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
 }
