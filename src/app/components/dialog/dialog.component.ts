@@ -19,55 +19,54 @@ export class DialogComponent implements OnInit {
   public searchChanged: Subject<string> = new Subject<string>();
 
   constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
+    private _dialogRef: MatDialogRef<DialogComponent>,
     private _cdRef: ChangeDetectorRef,
   ) {
     // Exclude 2 tone icons
     // https://github.com/google/material-design-icons/issues/190
-    const excludes = 'battery_20,battery_30,battery_50,battery_60,battery_80,battery_90,battery_charging_20,battery_charging_30,battery_charging_50,battery_charging_60,battery_charging_80,battery_charging_90,signal_cellular_0_bar,signal_cellular_1_bar,signal_cellular_2_bar,signal_cellular_3_bar,signal_cellular_connected_no_internet_0_bar,signal_cellular_connected_no_internet_1_bar,signal_cellular_connected_no_internet_2_bar,signal_cellular_connected_no_internet_3_bar,signal_wifi_0_bar,signal_wifi_1_bar_lock,signal_wifi_1_bar,signal_wifi_2_bar_lock,signal_wifi_2_bar,signal_wifi_3_bar_lock,signal_wifi_3_bar'.split(',');
+    const excludes = 'battery_20,battery_30,battery_50,battery_60,battery_80,battery_90,battery_charging_20,battery_charging_30,battery_charging_50,battery_charging_60,battery_charging_80,battery_charging_90,signal_cellular_1_bar,signal_cellular_2_bar,signal_cellular_3_bar,signal_cellular_connected_no_internet_1_bar,signal_cellular_connected_no_internet_2_bar,signal_cellular_connected_no_internet_3_bar,signal_wifi_1_bar_lock,signal_wifi_1_bar,signal_wifi_2_bar_lock,signal_wifi_2_bar,signal_wifi_3_bar_lock,signal_wifi_3_bar'.split(',');
 
-    this.data.forEach(category => {
-      category.icons.forEach((icon, index) => {
-        if (excludes.indexOf(icon.id) >= 0) {
-          category.icons.splice(index, 1);
-        }
+    this.data.forEach((category) => {
+      category.icons = category.icons
+        .filter((icon) => {
+          return excludes.indexOf(icon.id) < 0;
+        });
       });
-    });
   }
 
   select(icon): void {
-    this.dialogRef.close(icon);
+    this._dialogRef.close(icon);
   }
 
   ngOnInit() {
+    this._dialogRef.updateSize('5000px');
     this.searchChanged
       .pipe(
         debounceTime(300),
         distinctUntilChanged()
       )
-      .subscribe(text => {
+      .subscribe((text) => {
         this.search = text;
-        if (!text.length) {
-          this.categories = this.data;
-          return;
-        }
+        if (text.length) {
+          text = text.toLocaleLowerCase();
 
-        text = text.toLocaleLowerCase();
-
-        this.categories = [];
-        this.data.forEach(category => {
-          const icons = [];
-          category.icons.forEach(icon => {
-            if (icon.id.indexOf(text) >= 0) {
-              icons.push(icon);
+          this.categories = [];
+          this.data.forEach(category => {
+            const icons = [];
+            category.icons.forEach(icon => {
+              if (icon.id.indexOf(text) >= 0) {
+                icons.push(icon);
+              }
+            });
+            const cat = clone(category);
+            cat.icons = icons;
+            if (icons.length) {
+              this.categories.push(cat);
             }
           });
-          const cat = clone(category);
-          cat.icons = icons;
-          if (icons.length) {
-            this.categories.push(cat);
-          }
-        });
+        } else {
+          this.categories = this.data;
+        }
 
         this._cdRef.markForCheck();
       });

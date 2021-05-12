@@ -33,13 +33,15 @@ import { createHostBinding } from '@angular/compiler/src/core';
 })
 export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
 
-  @Input() public color: string = '';
+  @Input() public color = '';
 
   public model;
 
-  constructor(private _dialog: MatDialog,
-              private _el: ElementRef,
-              private _cdRef: ChangeDetectorRef) {}
+  constructor(
+    private _dialog: MatDialog,
+    private _el: ElementRef,
+    private _cdRef: ChangeDetectorRef,
+  ) { }
 
   @HostListener('click', ['$event'])
   public inputClick($event: Event) {

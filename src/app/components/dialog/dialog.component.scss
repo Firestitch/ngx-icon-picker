@@ -5,21 +5,26 @@
   }
 
   .icon {
-    padding: 10px;
     display: block;
     width: 60px;
     height: 60px;
-    padding: 10px;
   }
 
   mat-form-field {
     width: 100%;
   }
 
+  .category {
+    margin-bottom: 15px;
+    &:last-child {
+      margin: 0;
+    }
+  }
+
   .icons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    grid-gap: 15px;
   }
 
   .icons  mat-icon {
