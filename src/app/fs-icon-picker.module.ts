@@ -51,7 +51,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
 })
 export class FsIconPickerModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<FsIconPickerModule> {
     return {
       ngModule: FsIconPickerModule,
       providers: [IconDialog]
