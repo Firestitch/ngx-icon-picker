@@ -29,15 +29,6 @@ export class DialogComponent implements OnInit {
     private _cdRef: ChangeDetectorRef,
     private _clipboardService: ClipboardService,
   ) {
-    // Exclude 2 tone icons
-    // https://github.com/google/material-design-icons/issues/190
-    
-    // this.data.forEach((category) => {
-    //   category.icons = category.icons
-    //     .filter((icon) => {
-    //       return excludes.indexOf(icon.id) < 0;
-    //     });
-    //   });
   }
 
   select(event: KeyboardEvent, icon): void {
@@ -57,8 +48,7 @@ export class DialogComponent implements OnInit {
         switchMap((response) => response.json()),
       )
       .subscribe((data) => {
-        this.data = Object.values(
-          Object.keys(data)
+        const categories = Object.keys(data)
           .reduce((accum, item) => {
             const parts = item.split('::');
             const categoryId = parts[0];
@@ -81,8 +71,9 @@ export class DialogComponent implements OnInit {
 
             return accum;
           }, {})
-        );
-        this.categories = this.data;
+        
+        this.categories = Object.keys(categories).map(e => categories[e]);
+        this.data = this.categories;
         this._cdRef.markForCheck();
       });
 
