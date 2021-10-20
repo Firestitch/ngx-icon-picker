@@ -1,38 +1,50 @@
-:host {
-  h1 {
-    font-size: 20px;
-    text-transform: capitalize;
-  }
 
-  .icon {
-    display: block;
-    width: 60px;
-    height: 60px;
-  }
+h1 {
+  font-size: 20px;
+  text-transform: capitalize;
+}
 
-  mat-form-field {
-    width: 100%;
-  }
+.icon {
+  display: block;
+  width: 60px;
+  height: 60px;
+}
 
-  .category {
-    margin-bottom: 15px;
-    &:last-child {
-      margin: 0;
+mat-form-field {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background: #fff;
+
+  ::ng-deep {
+    .mat-form-field-flex {
+      align-items: center;
+    }
+
+    .mat-form-field-infix {
+      border: 0;
     }
   }
+}
 
-  .icons {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    grid-gap: 15px;
+.category {
+  margin-bottom: 15px;
+  &:last-child {
+    margin: 0;
   }
+}
 
-  .icons  mat-icon {
-    font-size: 60px;
-    width: 60px;
-    height: 60px;
-    display: block;
-    overflow: hidden;
-    color: #555;
-  }
+.icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  grid-gap: 15px;
+}
+
+.icons  mat-icon {
+  font-size: 60px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  overflow: hidden;
+  color: #555;
 }

@@ -20,7 +20,12 @@
             "tsConfig": "playground/tsconfig.app.json",
             "assets": [
               "playground/favicon.ico",
-              "playground/assets"
+              "playground/assets",
+              {
+                "glob": "*",
+                "input": "src/app/assets/",
+                "output": "./assets/"
+              }   
             ],
             "styles": [
               "playground/styles.scss"

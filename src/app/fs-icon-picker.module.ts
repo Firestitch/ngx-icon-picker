@@ -9,24 +9,31 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 import { FsClearModule } from '@firestitch/clear';
+import { FsSkeletonModule } from '@firestitch/skeleton';
 
 import { DialogComponent } from './components/dialog/dialog.component';
 import { IconDialog } from './services/icon-dialog.service';
 
 import { FsIconPickerComponent } from './components/fs-icon-picker/fs-icon-picker.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
+
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatTooltipModule,
+    
     HttpClientJsonpModule,
     HttpClientModule,
-    FormsModule,
-    FsClearModule
+    
+    FsClearModule,
+    FsSkeletonModule,
   ],
   exports: [
     DialogComponent,

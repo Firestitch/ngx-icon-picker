@@ -16,6 +16,7 @@ import {
   ExamplesComponent
 } from './components';
 import { AppComponent } from './app.component';
+import { FsMessage, FsMessageModule } from '@firestitch/message';
 
 
 const routes: Routes = [
@@ -30,9 +31,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,
-    FsExampleModule.forRoot(),
     ToastrModule.forRoot({ preventDuplicates: true }),
-    RouterModule.forRoot(routes),
+    FsMessageModule.forRoot(),
+    FsExampleModule.forRoot(),
+    RouterModule.forRoot(routes),   
   ],
   entryComponents: [],
   declarations: [
