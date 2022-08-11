@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { FsMessage } from '@firestitch/message';
+import { FsClipboard } from '@firestitch/clipboard';
 
 import { Subject } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
-
-import { ClipboardService } from 'ngx-clipboard';
 
 
 @Component({
@@ -25,16 +23,14 @@ export class DialogComponent implements OnInit {
 
   constructor(
     private _dialogRef: MatDialogRef<DialogComponent>,
-    private _message: FsMessage,
     private _cdRef: ChangeDetectorRef,
-    private _clipboardService: ClipboardService,
+    private _clipboard: FsClipboard,
   ) {
   }
 
   select(event: KeyboardEvent, icon): void {
     if(event.ctrlKey || event.shiftKey) {
-      this._clipboardService.copy(icon);
-      this._message.success('Copied to Clipboard');
+      this._clipboard.copy(icon);
     } else {
       this._dialogRef.close(icon);
     }
