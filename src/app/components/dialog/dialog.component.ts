@@ -28,7 +28,7 @@ export class DialogComponent implements OnInit {
   ) {
   }
 
-  select(event: KeyboardEvent, icon): void {
+  select(event: MouseEvent, icon): void {
     if(event.ctrlKey || event.shiftKey) {
       this._clipboard.copy(icon);
     } else {
