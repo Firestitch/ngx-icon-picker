@@ -52,7 +52,7 @@
     "codelyzer": "^6.0.0",
     "cpx": "^1.5.0",
     "hammerjs": "^2.0.8",
-    "highlight.js": "^9.17.1",
+    "highlight.js": "^10.4.1",
     "lodash-es": "^4.17.15",
     "ng-packagr": "^12.2.7",
     "ngx-highlightjs": "^4.1.4",
