@@ -21,7 +21,7 @@ import { Subject } from 'rxjs';
   selector: '[fsIconPicker]',
   template: `
     <div class="mat-form-field-suffix fs-icon-wrap" *ngIf="model" (click)="openDialog()"><mat-icon [ngStyle]="{ color: color }">{{model}}</mat-icon></div>
-    <fs-clear (clear)="clear()" [show]="model"></fs-clear>
+    <fs-clear (clear)="clear()" [show]="true" [visible]="!!model"></fs-clear>
   `,
   styleUrls: ['./fs-icon-picker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
