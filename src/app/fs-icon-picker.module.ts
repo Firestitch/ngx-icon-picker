@@ -19,36 +19,30 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    MatInputModule,
-    MatTooltipModule,
-    
-    HttpClientJsonpModule,
-    HttpClientModule,
-    
-    FsClearModule,
-    FsSkeletonModule,
-  ],
-  exports: [
-    DialogComponent,
-    FsIconPickerComponent
-  ],
-  entryComponents: [
-    DialogComponent
-  ],
-  declarations: [
-    DialogComponent,
-    FsIconPickerComponent
-  ],
-  providers: [
-    IconDialog,
-  ],
+    imports: [
+        FormsModule,
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatInputModule,
+        MatTooltipModule,
+        HttpClientJsonpModule,
+        HttpClientModule,
+        FsClearModule,
+        FsSkeletonModule,
+    ],
+    exports: [
+        DialogComponent,
+        FsIconPickerComponent
+    ],
+    declarations: [
+        DialogComponent,
+        FsIconPickerComponent
+    ],
+    providers: [
+        IconDialog,
+    ]
 })
 export class FsIconPickerModule {
   static forRoot(): ModuleWithProviders<FsIconPickerModule> {
