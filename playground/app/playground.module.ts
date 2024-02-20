@@ -16,7 +16,7 @@ import {
   ExamplesComponent
 } from './components';
 import { AppComponent } from './app.component';
-import { FsMessage, FsMessageModule } from '@firestitch/message';
+import { FsMessageModule } from '@firestitch/message';
 
 
 const routes: Routes = [
@@ -24,25 +24,23 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        FsIconPickerModule,
-        BrowserAnimationsModule,
-        AppMaterialModule,
-        FormsModule,
-        ToastrModule.forRoot({ preventDuplicates: true }),
-        FsMessageModule.forRoot(),
-        FsExampleModule.forRoot(),
-        RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
-    ],
-    declarations: [
-        AppComponent,
-        ExamplesComponent,
-        DialogExampleComponent,
-        PickerComponent
-    ],
-    providers: []
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    FsIconPickerModule,
+    BrowserAnimationsModule,
+    AppMaterialModule,
+    FormsModule,
+    FsMessageModule.forRoot(),
+    FsExampleModule.forRoot(),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+  ],
+  declarations: [
+    AppComponent,
+    ExamplesComponent,
+    DialogExampleComponent,
+    PickerComponent
+  ],
 })
 export class PlaygroundModule {
 }
