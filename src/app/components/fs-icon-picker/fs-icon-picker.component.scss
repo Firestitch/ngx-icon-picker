@@ -2,8 +2,12 @@
   margin-right: 4px;
 }
 
-:host ::ng-deep .open,.copy {
+.open,.copy {
   &:not(.show) {
     display: none;
   }
+}
+
+:host.show {
+  visibility: hidden;
 }

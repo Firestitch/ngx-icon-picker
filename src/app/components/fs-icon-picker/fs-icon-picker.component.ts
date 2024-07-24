@@ -5,6 +5,7 @@ import {
   Component,
   ElementRef,
   forwardRef,
+  HostBinding,
   HostListener,
   Input,
   OnDestroy,
@@ -33,6 +34,11 @@ import { DialogComponent } from '../dialog/dialog.component';
   }],
 })
 export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
+
+  @HostBinding('class.show')
+  public get classShow() {
+    return !!this.model;
+  }
 
   @Input() public color = '';
 
