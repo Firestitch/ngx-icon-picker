@@ -24,14 +24,13 @@
               "playground/assets",
               {
                 "glob": "*",
-                "input": "src/app/assets/",
-                "output": "./assets/"
+                "input": "src/app/assets",
+                "output": "./assets/icon-picker"
               }
             ],
             "styles": [
               "playground/styles.scss"
             ],
-            "scripts": [],
             "allowedCommonJsDependencies": [
               "highlight.js"
             ]

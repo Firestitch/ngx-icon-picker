@@ -1,34 +1,35 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
+  forwardRef,
   HostListener,
   Input,
-  forwardRef,
   OnDestroy,
-  ChangeDetectorRef
 } from '@angular/core';
-import { DialogComponent } from '../dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { takeUntil } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+
+import { FsClipboard } from '@firestitch/clipboard';
+
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { DialogComponent } from '../dialog/dialog.component';
 
 
 @Component({
   selector: '[fsIconPicker]',
-  template: `
-    <div class="mat-form-field-suffix fs-icon-wrap" *ngIf="model" (click)="openDialog()"><mat-icon [ngStyle]="{ color: color }">{{model}}</mat-icon></div>
-    <fs-clear (clear)="clear()" [show]="true" [visible]="!!model"></fs-clear>
-  `,
+  templateUrl: './fs-icon-picker.component.html',
   styleUrls: ['./fs-icon-picker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => FsIconPickerComponent),
-    multi: true
+    multi: true,
   }],
 })
 export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
@@ -37,10 +38,16 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
 
   public model;
 
+  public onChange: (value) => void;
+  public onTouch: () => void;
+
+  private _destroy$ = new Subject();
+
   constructor(
     private _dialog: MatDialog,
     private _el: ElementRef,
     private _cdRef: ChangeDetectorRef,
+    private _clipboard: FsClipboard,
   ) { }
 
   @HostListener('click', ['$event'])
@@ -57,37 +64,51 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     this._cdRef.markForCheck();
   }
 
-  public registerOnChange(_) { this.onChange = _; }
-  public registerOnTouched(_) {}
+  public registerOnChange(_) {
+    this.onChange = _; 
+  }
 
-  public onChange: any = () => {}
-  public onTouch: any = () => {}
-
-  private _destroy$ = new Subject();
+  public registerOnTouched(_) {
+    //
+  }
 
   public ngAfterViewInit() {
     const element = this._el.nativeElement;
     element.setAttribute('readonly', 'readonly');
-    element.parentElement.parentElement.insertBefore(element.firstChild, element.parentElement);
+
+    const open = element.querySelector('.open');
+    element.parentElement.parentElement.insertBefore(open, element.parentElement);
+
+    const copy = element.querySelector('.copy');
+    element.parentElement.parentElement.insertBefore(copy, element.parentElement.nextSibling);
   }
 
   public clear() {
     this.change(null);
   }
 
+  public copy(event: Event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    this._clipboard.copy(this.model);
+  }
+
   public openDialog() {
-
-    const dialogRef = this._dialog.open(DialogComponent);
-
-    dialogRef.afterClosed()
-    .pipe(
-      takeUntil(this._destroy$)
-    )
-    .subscribe((value: string | null) => {
-      if (value) {
-        this.change(value);
-      }
-    });
+    this._dialog.open(DialogComponent, {
+      height: '90%',
+      width: '90%',
+      maxHeight: '90%',
+      maxWidth: '90%',
+    })
+      .afterClosed()
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe((value: string | null) => {
+        if (value) {
+          this.change(value);
+        }
+      });
   }
 
   public change(value) {

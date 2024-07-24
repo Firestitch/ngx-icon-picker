@@ -1,25 +1,30 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { FsClipboard } from '@firestitch/clipboard';
 
 import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+
 import { fromFetch } from 'rxjs/fetch';
-import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
   selector: 'fs-component',
-  templateUrl: 'dialog.component.html',
-  styleUrls: [ 'dialog.component.scss' ],
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent implements OnInit {
+  
   public data;
-  public categories;
+  public _categories: string[];
+  public _icons: Icon[];
+  public categoryIcons: { icons: Icon[], category: string }[];
   public zoom = 1;
   public search: string;
-  public searchChanged: Subject<string> = new Subject<string>();
+  private _searchChanged: Subject<string> = new Subject<string>();
 
   constructor(
     private _dialogRef: MatDialogRef<DialogComponent>,
@@ -28,80 +33,98 @@ export class DialogComponent implements OnInit {
   ) {
   }
 
-  select(event: MouseEvent, icon): void {
+  public select(event: MouseEvent, icon): void {
     if(event.ctrlKey || event.shiftKey) {
       this._clipboard.copy(icon);
     } else {
       this._dialogRef.close(icon);
     }
   }
+  
+  public searchChange(keyword) {
+    this._searchChanged.next(keyword);
+  }
 
-  ngOnInit() {
-    const excludes = /^battery_|^signal_cellular|^signal_wifi/;
-
-    fromFetch('/assets/fs-icons.json')
+  public ngOnInit() {
+    fromFetch('/assets/icon-picker/icons.json')
       .pipe(
         switchMap((response) => response.json()),
       )
       .subscribe((data) => {
-        const categories = Object.keys(data)
-          .reduce((accum, item) => {
-            const parts = item.split('::');
-            const categoryId = parts[0];
-            const icon = parts[1];
+        this._icons = data.icons
+          .filter((icon) => {
+            return icon.unsupported_families.indexOf('Material Icons') === -1;
+          });
 
-            if(!icon.match(excludes)) {
-              let category = accum[categoryId];
-              if(!category) {
-                category = {
-                  name: categoryId,
-                  icons: [],
-                };
-                accum[categoryId] = category;
-              }
+        const categories = this._icons.
+          reduce((accum, icon) => {
+            return {
+              ...accum,
+              ...icon.categories
+                .reduce((categoryAccum, category) => {
+                  return {
+                    ...categoryAccum,
+                    [category]: true,
+                  };
+                }, {}),
+            };
+          }, {});
 
-              category.icons.push({
-                id: icon,
-              });
-            }
-
-            return accum;
-          }, {})
-        
-        this.categories = Object.keys(categories).map(e => categories[e]);
-        this.data = this.categories;
-        this._cdRef.markForCheck();
+        this._categories = Object.keys(categories);
+        this.loadIcons();
       });
 
     this._dialogRef.updateSize('5000px');
-    this.searchChanged
+    this._searchChanged
       .pipe(
         debounceTime(300),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       )
-      .subscribe((text) => {
-        this.categories = [
-          ...this.data,
-        ];
-
-        if (text.length) {
-          text = text.toLocaleLowerCase();
-
-          this.categories = this.categories
-          .map((category) => {
-            return {
-              ...category,
-              icons: category.icons.filter((icon) => {
-                return icon.id.indexOf(text) !== -1;
-              }),
-            };
-          })
-          .filter((category) => {
-            return category.icons.length;
-          });
-        }
-
-        this._cdRef.markForCheck();
+      .subscribe((keyword) => {
+        this.loadIcons(keyword);
       });
   }
+
+  public loadIcons(keyword?: string): void {
+    this.categoryIcons = [];
+    const categoryIcons = this._icons
+      .filter((icon: Icon) => !keyword || icon.tags
+        .some((tag) => (tag.indexOf(keyword) !== -1)),
+      )
+      .reduce((accum, icon) => {
+        return {
+          ...accum,
+          ...icon.categories
+            .reduce((accum1, category) => {
+              const items = accum[category] || [];
+
+              return {
+                ...accum1,
+                [category]: [
+                  ...items,
+                  icon,
+                ],
+              };
+            }, {}),
+        };
+      }, {});
+
+    this.categoryIcons = Object.keys(categoryIcons)
+      .filter((category) => !!categoryIcons[category])
+      .map((category) => {
+        return {
+          category,
+          icons: categoryIcons[category],
+        };
+      }, []);
+
+    this._cdRef.markForCheck();
+  }
 }
+
+interface Icon {
+  name: string;
+  categories: string[],
+  tags: string[]
+}
+

@@ -1,8 +1,9 @@
-.fs-icon-wrap {
+.open {
   margin-right: 4px;
-  cursor: pointer;
 }
 
-:host {
-  cursor: pointer;
+:host ::ng-deep .open,.copy {
+  &:not(.show) {
+    display: none;
+  }
 }
