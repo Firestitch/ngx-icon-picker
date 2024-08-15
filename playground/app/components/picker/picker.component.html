@@ -2,5 +2,9 @@
   <input type="text" matInput placeholder="Icon" [(ngModel)]="icon" fsIconPicker [color]="color">
 </mat-form-field>
 
-
-<p>{{icon}}</p>
+<ng-container *ngIf="icon">
+  <fieldset>
+    <legend>Selected icon</legend>
+    {{icon}}
+  </fieldset>
+</ng-container>
