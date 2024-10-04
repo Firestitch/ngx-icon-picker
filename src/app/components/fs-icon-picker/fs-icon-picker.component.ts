@@ -9,6 +9,7 @@ import {
   HostListener,
   Input,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -34,6 +35,12 @@ import { DialogComponent } from '../dialog/dialog.component';
   }],
 })
 export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
+
+  @ViewChild('openEl', { read: ElementRef })
+  public openEl: ElementRef;
+
+  @ViewChild('copyEl', { read: ElementRef })
+  public copyEl: ElementRef;
 
   @HostBinding('class.show')
   public get classShow() {
@@ -78,15 +85,31 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     //
   }
 
+  // public ngAfterViewInit() {
+  //   const element = this._el.nativeElement;
+  //   element.setAttribute('readonly', 'readonly');
+
+  //   const open = element.querySelector('.open');
+  //   element.parentElement.parentElement.insertBefore(open, element.parentElement);
+
+  //   const copy = element.querySelector('.copy');
+  //   element.parentElement.parentElement.insertBefore(copy, element.parentElement.nextSibling);
+  // }
+
+  
   public ngAfterViewInit() {
-    const element = this._el.nativeElement;
-    element.setAttribute('readonly', 'readonly');
+    const el = this._getFormFieldFlex(this._el.nativeElement);
 
-    const open = element.querySelector('.open');
-    element.parentElement.parentElement.insertBefore(open, element.parentElement);
+    const prefix = document.createElement('div');
+    prefix.classList.add('mat-mdc-form-field-icon-prefix');
+    prefix.appendChild(this.openEl.nativeElement);
+    el.prepend(prefix);
 
-    const copy = element.querySelector('.copy');
-    element.parentElement.parentElement.insertBefore(copy, element.parentElement.nextSibling);
+    const suffix = document.createElement('div');
+    suffix.classList.add('mat-mdc-form-field-icon-suffix');
+    suffix.appendChild(this.copyEl.nativeElement);
+
+    el.insertBefore(suffix, el.querySelector('.mat-mdc-form-field-infix').nextSibling);
   }
 
   public clear() {
@@ -131,4 +154,13 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     this._el.nativeElement.value = value;
     this.model = value;
   }
+
+  private _getFormFieldFlex(el: Element) {
+    if (el.classList.contains('mat-mdc-form-field-flex')) {
+      return el;
+    }
+
+    return el.parentElement ? this._getFormFieldFlex(el.parentElement) : null;
+  }
+
 }

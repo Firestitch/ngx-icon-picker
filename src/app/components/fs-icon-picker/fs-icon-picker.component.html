@@ -1,19 +1,21 @@
-<div     
+<a 
+    #openEl
     [ngClass]="{ show: !!this.model }"
-    class="mat-form-field-prefix open"
+    class="open"
+    mat-icon-button 
     (click)="openDialog()">
-  <a mat-icon-button>
-    <mat-icon [ngStyle]="{ color: color }">{{model}}</mat-icon>
-  </a>  
-</div>    
-<div 
+  <mat-icon [ngStyle]="{ color: color }">{{model}}</mat-icon>
+</a>  
+<a  
+    #copyEl
     [ngClass]="{ show: !!this.model }"
-    class="mat-form-field-suffix copy">
-  <a
-      (click)="copy($event)"
-      mat-icon-button>
-    <mat-icon>content_copy</mat-icon>
-  </a>
-</div> 
+    (click)="copy($event)"
+    mat-icon-button>
+  <mat-icon>content_copy</mat-icon>
+</a>
 
-<fs-clear (clear)="clear()" [show]="true" [visible]="!!model"></fs-clear>
+<fs-clear 
+  (clear)="clear()" 
+  [show]="true" 
+  [visible]="!!model">
+</fs-clear>
