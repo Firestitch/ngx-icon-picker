@@ -36,7 +36,7 @@ export class IconDialog implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this._destroy$.next();
+    this._destroy$.next(null);
     this._destroy$.complete();
   }
 
