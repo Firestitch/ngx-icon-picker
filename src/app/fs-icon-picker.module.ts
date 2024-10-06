@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,32 +18,25 @@ import { FsIconPickerComponent } from './components/fs-icon-picker/fs-icon-picke
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
-@NgModule({
-    imports: [
-        FormsModule,
-        CommonModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        MatInputModule,
-        MatTooltipModule,
-        HttpClientJsonpModule,
-        HttpClientModule,
-        FsClearModule,
-        FsSkeletonModule,
-    ],
-    exports: [
+@NgModule({ exports: [
         DialogComponent,
         FsIconPickerComponent
     ],
     declarations: [
         DialogComponent,
         FsIconPickerComponent
-    ],
-    providers: [
+    ], imports: [FormsModule,
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatInputModule,
+        MatTooltipModule,
+        FsClearModule,
+        FsSkeletonModule], providers: [
         IconDialog,
-    ]
-})
+        provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
+    ] })
 export class FsIconPickerModule {
   static forRoot(): ModuleWithProviders<FsIconPickerModule> {
     return {
