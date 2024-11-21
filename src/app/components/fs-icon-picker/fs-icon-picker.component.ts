@@ -9,6 +9,7 @@ import {
   Injector,
   Input,
   OnDestroy,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -35,7 +36,7 @@ import { DialogComponent } from '../dialog/dialog.component';
     multi: true,
   }],
 })
-export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
+export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy, OnInit {
 
   @ViewChild('openEl', { read: ElementRef })
   public openEl: ElementRef;
@@ -65,6 +66,10 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     private _clipboard: FsClipboard,
     private _injector: Injector,
   ) { }
+
+  public ngOnInit() {
+    this._injector.get(MatInput).value = this.model;
+  }
 
   public writeValue(value) {
     this._update(value);

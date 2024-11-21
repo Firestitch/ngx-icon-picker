@@ -10,16 +10,12 @@ import { IconDialog } from '@firestitch/icon-picker';
 })
 export class PickerComponent {
 
-  public icon = undefined;
+  public icon = 'settings';
   public color = '#4678AE';
 
   constructor(
     private _iconDialog: IconDialog,
   ) {
-
-    // setTimeout(() => {
-    //     this.color = 'pink';
-    // }, 10000);
   }
 
   public select() {
