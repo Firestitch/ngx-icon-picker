@@ -9,7 +9,7 @@ h1 {
 }
 
 mat-dialog-content {
-  padding: 24px;
+  padding: 0 24px !important;
 
   .search {
     width: 100%;
@@ -25,8 +25,7 @@ mat-dialog-content {
       box-sizing: border-box;
       padding-top: 24px;
       position: relative;
-      top: -24px;
-      margin-top: -24px;
+
       ::ng-deep {
         .mat-form-field-flex {
           align-items: center;

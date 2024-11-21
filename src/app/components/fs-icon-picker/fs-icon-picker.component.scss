@@ -6,6 +6,10 @@ a:not(.show) {
   display: none;
 }
 
-:host.has-value {
+:host {
   display: none !important;
+}
+
+::ng-deep .fs-icon-picker-form-field {
+  cursor: pointer;
 }

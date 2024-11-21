@@ -6,7 +6,7 @@ import {
   ElementRef,
   forwardRef,
   HostBinding,
-  HostListener,
+  Injector,
   Input,
   OnDestroy,
   ViewChild,
@@ -14,11 +14,12 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormField, MatInput } from '@angular/material/input';
 
 import { FsClipboard } from '@firestitch/clipboard';
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -62,20 +63,11 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     private _el: ElementRef,
     private _cdRef: ChangeDetectorRef,
     private _clipboard: FsClipboard,
+    private _injector: Injector,
   ) { }
-
-  @HostListener('click', ['$event'])
-  public inputClick($event: Event) {
-    if (!this.model) {
-      $event.preventDefault();
-      $event.stopPropagation();
-    }
-    this.openDialog();
-  }
 
   public writeValue(value) {
     this._update(value);
-    this._cdRef.markForCheck();
   }
 
   public registerOnChange(onChange) {
@@ -86,8 +78,23 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     //
   }
 
+  public setDisabledState?(): void {
+    //
+  }
+
   public ngAfterViewInit() {
-    this._el.nativeElement.setAttribute('readonly', 'readonly');
+    this._el.nativeElement.setAttribute('disabled', 'disabled');
+    const formField = this._injector.get(MatFormField).getConnectedOverlayOrigin();
+    formField.nativeElement.classList.add('fs-icon-picker-form-field');
+    
+    fromEvent(formField.nativeElement, 'click')
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => {
+        this.openDialog();
+      });
+
     const el = this._getFormFieldFlex(this._el.nativeElement);
 
     const prefix = document.createElement('div');
@@ -121,18 +128,19 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     })
       .afterClosed()
       .pipe(
+        filter((value: string | null) => !!value),
         takeUntil(this._destroy$),
       )
       .subscribe((value: string | null) => {
-        if (value) {
-          this.change(value);
-        }
+        this.change(value);
+        this._cdRef.markForCheck();
       });
   }
 
   public change(value) {
     this._update(value);
     this.onChange(value);
+    this._injector.get(MatInput).value = value;
   }
 
   public ngOnDestroy() {
