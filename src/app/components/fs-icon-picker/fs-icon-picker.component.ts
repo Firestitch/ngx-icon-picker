@@ -42,12 +42,13 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
   @ViewChild('copyEl', { read: ElementRef })
   public copyEl: ElementRef;
 
-  @HostBinding('class.show')
+  @HostBinding('class.has-value')
   public get classShow() {
     return !!this.model;
   }
 
   @Input() public color = '';
+  @Input() public showCopy = false;
 
   public model;
 
@@ -77,27 +78,16 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
     this._cdRef.markForCheck();
   }
 
-  public registerOnChange(_) {
-    this.onChange = _; 
+  public registerOnChange(onChange) {
+    this.onChange = onChange; 
   }
 
-  public registerOnTouched(_) {
+  public registerOnTouched() {
     //
   }
 
-  // public ngAfterViewInit() {
-  //   const element = this._el.nativeElement;
-  //   element.setAttribute('readonly', 'readonly');
-
-  //   const open = element.querySelector('.open');
-  //   element.parentElement.parentElement.insertBefore(open, element.parentElement);
-
-  //   const copy = element.querySelector('.copy');
-  //   element.parentElement.parentElement.insertBefore(copy, element.parentElement.nextSibling);
-  // }
-
-  
   public ngAfterViewInit() {
+    this._el.nativeElement.setAttribute('readonly', 'readonly');
     const el = this._getFormFieldFlex(this._el.nativeElement);
 
     const prefix = document.createElement('div');
@@ -151,7 +141,6 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
   }
 
   private _update(value) {
-    this._el.nativeElement.value = value;
     this.model = value;
   }
 

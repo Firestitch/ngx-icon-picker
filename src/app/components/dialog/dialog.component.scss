@@ -8,25 +8,41 @@ h1 {
   display: block;
 }
 
-mat-form-field {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  background: #fff;
+mat-dialog-content {
+  padding: 24px;
 
-  ::ng-deep {
-    .mat-form-field-flex {
-      align-items: center;
-    }
+  .search {
+    width: 100%;
+    top: 0;
+    position: sticky;
+    width: 100%;
+    left: 0;
+    
+    mat-form-field {
+      background: #fff;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding-top: 24px;
+      position: relative;
+      top: -24px;
+      margin-top: -24px;
+      ::ng-deep {
+        .mat-form-field-flex {
+          align-items: center;
+        }
 
-    .mat-form-field-infix {
-      border: 0;
+        .mat-form-field-infix {
+          border: 0;
+        }
+      }
     }
   }
 }
 
 .category {
   margin-bottom: 15px;
+
   &:last-child {
     margin: 0;
   }

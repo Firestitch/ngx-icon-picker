@@ -1,13 +1,11 @@
 .open {
-  margin-right: 4px;
+  margin-left: -14px;
 }
 
-.open,.copy {
-  &:not(.show) {
-    display: none;
-  }
+a:not(.show) {
+  display: none;
 }
 
-:host.show {
-  visibility: hidden;
+:host.has-value {
+  display: none !important;
 }

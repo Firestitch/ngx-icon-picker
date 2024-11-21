@@ -2,7 +2,7 @@
   "name": "@firestitch/icon-picker",
   "title": "Icon Picker",
   "description": "@firestitch/icon-picker",
-  "version": "18.0.0",
+  "version": "18.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Firestitch/ngx-icon-picker"
@@ -38,7 +38,7 @@
     "@angular/platform-browser-dynamic": "^18.2.7",
     "@angular/router": "^18.2.7",
     "@firestitch/api": "^18.0.1",
-    "@firestitch/clear": "^18.0.6",
+    "@firestitch/clear": "^18.0.8",
     "@firestitch/clipboard": "^18.0.0",
     "@firestitch/common": "^18.0.0",
     "@firestitch/component-tools": "^18.0.13",

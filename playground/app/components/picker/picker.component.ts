@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { IconDialog } from '@firestitch/icon-picker';
 
 
 @Component({
   selector: 'picker',
-  templateUrl: 'picker.component.html'
+  templateUrl: './picker.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PickerComponent {
-  public icon = 'face';
+
+  public icon = undefined;
   public color = '#4678AE';
 
-  constructor(private iconDialog: IconDialog) {
+  constructor(
+    private _iconDialog: IconDialog,
+  ) {
 
     // setTimeout(() => {
     //     this.color = 'pink';
@@ -18,9 +23,9 @@ export class PickerComponent {
   }
 
   public select() {
-    this.iconDialog.open()
-    .subscribe(icon => {
-      this.icon = icon;
-    });
+    this._iconDialog.open()
+      .subscribe((icon) => {
+        this.icon = icon;
+      });
   }
 }

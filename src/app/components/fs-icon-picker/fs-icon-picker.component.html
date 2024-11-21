@@ -1,21 +1,26 @@
-<a 
+<a
     #openEl
     [ngClass]="{ show: !!this.model }"
     class="open"
-    mat-icon-button 
+    mat-icon-button
     (click)="openDialog()">
-  <mat-icon [ngStyle]="{ color: color }">{{model}}</mat-icon>
-</a>  
-<a  
-    #copyEl
-    [ngClass]="{ show: !!this.model }"
-    (click)="copy($event)"
-    mat-icon-button>
-  <mat-icon>content_copy</mat-icon>
+  <mat-icon [ngStyle]="{ color: color }">
+    {{ model }}
+  </mat-icon>
 </a>
-
-<fs-clear 
-  (clear)="clear()" 
-  [show]="true" 
+@if (showCopy) {
+  <a
+      #copyEl
+      [ngClass]="{ show: !!this.model }"
+      (click)="copy($event)"
+      mat-icon-button>
+    <mat-icon>
+      content_copy
+    </mat-icon>
+  </a>
+}
+<fs-clear
+  (clear)="clear()"
+  [show]="true"
   [visible]="!!model">
 </fs-clear>

@@ -1,10 +1,18 @@
 <mat-form-field appearance="outline">
-  <input type="text" matInput placeholder="Icon" [(ngModel)]="icon" fsIconPicker [color]="color">
+  <input
+    type="text"
+    matInput
+    placeholder="Icon"
+    [showCopy]="true"
+    [(ngModel)]="icon"
+    fsIconPicker
+    [color]="color">
 </mat-form-field>
-
 <ng-container *ngIf="icon">
   <fieldset>
-    <legend>Selected icon</legend>
-    {{icon}}
+    <legend>
+      Selected icon
+    </legend>
+    {{ icon }}
   </fieldset>
 </ng-container>

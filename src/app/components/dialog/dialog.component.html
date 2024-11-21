@@ -1,30 +1,49 @@
 <mat-dialog-content>
-  <mat-form-field>
-    <span matPrefix><mat-icon>search</mat-icon></span>
-    <input 
-      matInput 
-      placeholder="Search" 
-      [(ngModel)]="search" 
-      name="search"
-      (ngModelChange)="searchChange($event)">
-  </mat-form-field>
+  <div class="search">
+    <mat-form-field>
+      <span matPrefix>
+        <mat-icon>
+          search
+        </mat-icon>
+      </span>
+      <input
+        matInput
+        placeholder="Search"
+        [(ngModel)]="search"
+        name="search"
+        (ngModelChange)="searchChange($event)">
+    </mat-form-field>
+  </div>
   <ng-container *fsSkeleton="categoryIcons">
-    <div *ngFor="let categoryIcon of categoryIcons" class="category">
-      <h1>{{categoryIcon.category}}</h1>
+    <div
+        *ngFor="let categoryIcon of categoryIcons"
+        class="category">
+      <h1>
+        {{ categoryIcon.category }}
+      </h1>
       <div class="icons">
-          <span class="icon" *ngFor="let icon of categoryIcon.icons">
-          <a 
+        <span
+            class="icon"
+            *ngFor="let icon of categoryIcon.icons">
+          <a
               [matTooltip]="icon.name"
               [matTooltipShowDelay]="500"
               href="javascript:;"
               (click)="select($event, icon.name)">
-            <mat-icon>{{icon.name}}</mat-icon>
-          </a> 
+            <mat-icon>
+              {{ icon.name }}
+            </mat-icon>
+          </a>
         </span>
       </div>
     </div>
   </ng-container>
 </mat-dialog-content>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close color="primary">Close</button>
+  <button
+      mat-button
+      mat-dialog-close
+      color="primary">
+    Close
+  </button>
 </div>
