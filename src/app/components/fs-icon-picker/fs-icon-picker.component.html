@@ -8,17 +8,15 @@
     {{ model }}
   </mat-icon>
 </a>
-@if (showCopy) {
-  <a
-      #copyEl
-      [ngClass]="{ show: !!this.model }"
-      (click)="copy($event)"
-      mat-icon-button>
-    <mat-icon>
-      content_copy
-    </mat-icon>
-  </a>
-}
+<a
+    #copyEl
+    [ngClass]="{ show: this.showCopy && !!this.model }"
+    (click)="copy($event)"
+    mat-icon-button>
+  <mat-icon>
+    content_copy
+  </mat-icon>
+</a>
 <fs-clear
   (clear)="clear()"
   [show]="true"
