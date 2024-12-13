@@ -17,6 +17,10 @@ mat-dialog-content {
     position: sticky;
     width: 100%;
     left: 0;
+
+    .mat-icon {
+      margin-left: 10px;
+    }
     
     mat-form-field {
       background: #fff;
