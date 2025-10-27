@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 import { FsClipboard } from '@firestitch/clipboard';
 
@@ -8,13 +8,36 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { fromFetch } from 'rxjs/fetch';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatPrefix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { FsSkeletonModule } from '@firestitch/skeleton';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
-  selector: 'fs-component',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fs-component',
+    templateUrl: './dialog.component.html',
+    styleUrls: ['./dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CdkScrollable,
+        MatDialogContent,
+        MatFormField,
+        MatPrefix,
+        MatIcon,
+        MatInput,
+        FormsModule,
+        FsSkeletonModule,
+        MatTooltip,
+        MatDialogActions,
+        MatButton,
+        MatDialogClose,
+    ],
 })
 export class DialogComponent implements OnInit {
   

@@ -23,18 +23,30 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import { DialogComponent } from '../dialog/dialog.component';
+import { MatIconAnchor } from '@angular/material/button';
+import { NgClass, NgStyle } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { FsClearModule } from '@firestitch/clear';
 
 
 @Component({
-  selector: '[fsIconPicker]',
-  templateUrl: './fs-icon-picker.component.html',
-  styleUrls: ['./fs-icon-picker.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => FsIconPickerComponent),
-    multi: true,
-  }],
+    selector: '[fsIconPicker]',
+    templateUrl: './fs-icon-picker.component.html',
+    styleUrls: ['./fs-icon-picker.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [{
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => FsIconPickerComponent),
+            multi: true,
+        }],
+    standalone: true,
+    imports: [
+        MatIconAnchor,
+        NgClass,
+        MatIcon,
+        NgStyle,
+        FsClearModule,
+    ],
 })
 export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy, OnInit {
 

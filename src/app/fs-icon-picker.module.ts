@@ -22,10 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         DialogComponent,
         FsIconPickerComponent
     ],
-    declarations: [
-        DialogComponent,
-        FsIconPickerComponent
-    ], imports: [FormsModule,
+    imports: [FormsModule,
         CommonModule,
         MatDialogModule,
         MatButtonModule,
@@ -33,7 +30,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatInputModule,
         MatTooltipModule,
         FsClearModule,
-        FsSkeletonModule], providers: [
+        FsSkeletonModule, DialogComponent,
+        FsIconPickerComponent], providers: [
         IconDialog,
         provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
     ] })
