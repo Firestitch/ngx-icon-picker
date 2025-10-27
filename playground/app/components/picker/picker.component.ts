@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { IconDialog } from '@firestitch/icon-picker';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -21,14 +21,11 @@ import { FsIconPickerComponent } from '../../../../src/app/components/fs-icon-pi
     ],
 })
 export class PickerComponent {
+  private _iconDialog = inject(IconDialog);
+
 
   public icon = 'settings';
   public color = '#4678AE';
-
-  constructor(
-    private _iconDialog: IconDialog,
-  ) {
-  }
 
   public select() {
     this._iconDialog.open()

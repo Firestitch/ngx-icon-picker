@@ -1,17 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  forwardRef,
-  HostBinding,
-  Injector,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, HostBinding, Injector, Input, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -49,6 +36,12 @@ import { FsClearModule } from '@firestitch/clear';
     ],
 })
 export class FsIconPickerComponent implements AfterViewInit, ControlValueAccessor, OnDestroy, OnInit {
+  private _dialog = inject(MatDialog);
+  private _el = inject(ElementRef);
+  private _cdRef = inject(ChangeDetectorRef);
+  private _clipboard = inject(FsClipboard);
+  private _injector = inject(Injector);
+
 
   @ViewChild('openEl', { read: ElementRef })
   public openEl: ElementRef;
@@ -70,14 +63,6 @@ export class FsIconPickerComponent implements AfterViewInit, ControlValueAccesso
   public onTouch: () => void;
 
   private _destroy$ = new Subject();
-
-  constructor(
-    private _dialog: MatDialog,
-    private _el: ElementRef,
-    private _cdRef: ChangeDetectorRef,
-    private _clipboard: FsClipboard,
-    private _injector: Injector,
-  ) { }
 
   public ngOnInit() {
     this._injector.get(MatInput).value = this.model;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 
 import { MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
@@ -40,6 +40,10 @@ import { MatButton } from '@angular/material/button';
     ],
 })
 export class DialogComponent implements OnInit {
+  private _dialogRef = inject<MatDialogRef<DialogComponent>>(MatDialogRef);
+  private _cdRef = inject(ChangeDetectorRef);
+  private _clipboard = inject(FsClipboard);
+
   
   public data;
   public _categories: string[];
@@ -48,13 +52,6 @@ export class DialogComponent implements OnInit {
   public zoom = 1;
   public search: string;
   private _searchChanged: Subject<string> = new Subject<string>();
-
-  constructor(
-    private _dialogRef: MatDialogRef<DialogComponent>,
-    private _cdRef: ChangeDetectorRef,
-    private _clipboard: FsClipboard,
-  ) {
-  }
 
   public select(event: MouseEvent, icon): void {
     if(event.ctrlKey || event.shiftKey) {

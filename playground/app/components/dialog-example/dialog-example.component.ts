@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IconDialog } from '@firestitch/icon-picker';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -10,8 +10,9 @@ import { MatIcon } from '@angular/material/icon';
     imports: [MatButton, MatIcon]
 })
 export class DialogExampleComponent {
+  private iconDialog = inject(IconDialog);
+
   public icon;
-  constructor(private iconDialog: IconDialog) {}
 
   public select() {
     this.iconDialog.open()

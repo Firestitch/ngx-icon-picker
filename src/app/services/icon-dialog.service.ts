@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Subject } from 'rxjs';
@@ -9,8 +9,8 @@ import { takeUntil } from 'rxjs/operators';
 
 @Injectable()
 export class IconDialog implements OnDestroy {
+  private dialog = inject(MatDialog);
 
-  constructor(private dialog: MatDialog) {}
 
   private _destroy$ = new Subject();
 
