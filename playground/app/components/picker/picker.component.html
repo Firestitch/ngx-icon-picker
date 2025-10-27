@@ -10,11 +10,11 @@
     fsIconPicker
     [color]="color">
 </mat-form-field>
-<ng-container *ngIf="icon">
+@if (icon) {
   <fieldset>
     <legend>
       Selected icon
     </legend>
     {{ icon }}
   </fieldset>
-</ng-container>
+}
